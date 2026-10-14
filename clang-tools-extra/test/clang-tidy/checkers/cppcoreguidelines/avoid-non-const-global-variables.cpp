@@ -250,6 +250,16 @@ typedef int (*const functionConstPointer)();
 functionPointer fp2 = &dummyFunction;
 // CHECK-MESSAGES: :[[@LINE-1]]:17: warning: variable 'fp2' is non-const and globally accessible, consider making it const [cppcoreguidelines-avoid-non-const-global-variables]
 
+struct struct_t {
+  int member;
+};
+
+static struct_t *p_struct = nullptr;
+// CHECK-MESSAGES: :[[@LINE-1]]:18: warning: variable 'p_struct' is non-const and globally accessible, consider making it const [cppcoreguidelines-avoid-non-const-global-variables]
+// CHECK-MESSAGES: :[[@LINE-2]]:18: warning: variable 'p_struct' provides global access to a non-const object; consider making the pointed-to data 'const' [cppcoreguidelines-avoid-non-const-global-variables]
+// CHECK-MESSAGES-INTERNAL-LINKAGE-NOT: :[[@LINE-3]]:18: warning: variable 'p_struct' is non-const and globally accessible, consider making it const [cppcoreguidelines-avoid-non-const-global-variables]
+// CHECK-MESSAGES-INTERNAL-LINKAGE: :[[@LINE-4]]:18: warning: variable 'p_struct' provides global access to a non-const object; consider making the pointed-to data 'const' [cppcoreguidelines-avoid-non-const-global-variables]
+
 // CHECKING FOR NON-CONST GLOBAL TEMPLATE VARIABLE ////////////////////////////
 template <class T>
 constexpr T templateVariable = T(0L);

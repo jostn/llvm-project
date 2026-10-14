@@ -55,6 +55,18 @@ Options
    When set to `true`, non-const global variables with thread-local storage
    duration will not generate a warning. The default value is `false`.
 
+.. option:: AllowPointers
+
+   When set to `true`, non-const global pointer variables will not generate a
+   warning. This includes pointers initialized to null, for example lazy
+   initialization of a module singleton:
+
+   .. code-block:: c++
+
+       static struct_t *p_struct = NULL;
+
+   The default value is `false`.
+
 .. option:: IgnoreMacros
 
    When set to `true`, non-const global variables defined in macros will not
